@@ -80,8 +80,7 @@ public class CadastrarActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Intent it = new Intent( getApplicationContext(), EntrarActivity.class );
-                    startActivity( it );
+                    finish();
                 }
                 else{
 

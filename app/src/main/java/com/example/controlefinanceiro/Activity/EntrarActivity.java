@@ -73,8 +73,8 @@ public class EntrarActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Intent it = new Intent( getApplicationContext(), PainelActitvity.class );
-                    startActivity( it );
+                    startActivity( new Intent( getApplicationContext(), PainelActitvity.class ) );
+                    finish();
                 } else{
 
                     String excecao = "";

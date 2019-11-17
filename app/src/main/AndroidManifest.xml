@@ -12,9 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
         <activity
+            android:name=".Activity.DespesasActivity"
+            android:label="Suas Despesas"
+            android:parentActivityName=".Activity.PainelActitvity"/>
+        <activity
+            android:name=".Activity.LucrosActivity"
+            android:label="Seus Lucros"
+            android:parentActivityName=".Activity.PainelActitvity"/>
+        <activity
             android:name=".Activity.PainelActitvity"
             android:label="@string/title_activity_painel_actitvity"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".Activity.EntrarActivity"
             android:label="Entrar"

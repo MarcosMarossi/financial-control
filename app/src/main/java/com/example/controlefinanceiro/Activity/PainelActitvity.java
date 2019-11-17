@@ -1,9 +1,7 @@
 package com.example.controlefinanceiro.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,10 +15,11 @@ public class PainelActitvity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.act_painel_actitvity );
+        setContentView( R.layout.act_painel );
         Toolbar toolbar = findViewById( R.id.toolbar );
         setSupportActionBar( toolbar );
-
+        getSupportActionBar().hide();
+/*
         FloatingActionButton fab = findViewById( R.id.fab );
         fab.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -28,7 +27,15 @@ public class PainelActitvity extends AppCompatActivity {
                 Snackbar.make( view, "Replace with your own action", Snackbar.LENGTH_LONG )
                         .setAction( "Action", null ).show();
             }
-        } );
+        } );*/
+    }
+
+    public void criarDespesa(View view){
+        startActivity( new Intent( getApplicationContext(), DespesasActivity.class ) );
+
+    }
+    public void criarLucro(View view){
+        startActivity( new Intent( getApplicationContext(), LucrosActivity.class ) );
     }
 
 }

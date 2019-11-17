@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.PainelActitvity"
-    tools:showIn="@layout/act_painel_actitvity">
+    tools:showIn="@layout/act_painel">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
