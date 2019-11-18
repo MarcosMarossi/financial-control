@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.controlefinanceiro.Configurações.ConfigFirebase;
+import com.example.controlefinanceiro.Helper.Base64Custom;
 import com.example.controlefinanceiro.Model.Usuario;
 import com.example.controlefinanceiro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -80,6 +81,10 @@ public class CadastrarActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+
+                    String idUsuario = Base64Custom.codificarBase64( usuario.getEmail() );
+                    usuario.setIdUsuario( idUsuario );
+                    usuario.salvar();
                     finish();
                 }
                 else{

@@ -44,6 +44,7 @@ public class MainActivity extends IntroActivity {
     private void verificarUsuario() {
 
         autenticacao = ConfigFirebase.getFireBaseAutenticacao();
+        //autenticacao.signOut();
         if( autenticacao.getCurrentUser() != null){
             startActivity(new Intent( getApplicationContext(), PainelActitvity.class));
         }
