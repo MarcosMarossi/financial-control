@@ -11,6 +11,25 @@ public class Usuario {
     private String senha;
     private String idUsuario;
 
+    private Double despesaTotal = 0.0;
+    private Double receitaTotal = 0.0;
+
+    public Double getDespesaTotal() {
+        return despesaTotal;
+    }
+
+    public void setDespesaTotal(Double despesaTotal) {
+        this.despesaTotal = despesaTotal;
+    }
+
+    public Double getReceitaTotal() {
+        return receitaTotal;
+    }
+
+    public void setReceitaTotal(Double receitaTotal) {
+        this.receitaTotal = receitaTotal;
+    }
+
     public Usuario() {
     }
 
