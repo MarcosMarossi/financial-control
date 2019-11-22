@@ -21,7 +21,6 @@
             android:parentActivityName=".Activity.PainelActitvity"/>
         <activity
             android:name=".Activity.PainelActitvity"
-            android:label="@string/title_activity_painel_actitvity"
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".Activity.EntrarActivity"
