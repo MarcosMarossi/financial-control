@@ -9,7 +9,7 @@ public class Base64Custom {
 
     }
 
-    public static String deecodificarBase64(String textoCodificado){
+    public static String decodificarBase64(String textoCodificado){
         return new String( Base64.decode( textoCodificado, Base64.DEFAULT) );
     }
 }
