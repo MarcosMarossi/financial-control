@@ -67,6 +67,9 @@ public class PainelActitvity extends AppCompatActivity {
                 .setMaximumDate( CalendarDay.from(2020,2,1))
                 .commit();
 
+        CharSequence meses[] = {"Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"};
+        calendario.setTitleMonths(meses);
+
         CalendarDay calendarDay = calendario.getCurrentDate();
 
         String mesSelecionado = String.format( "%02d", (calendarDay.getMonth()+1) );
