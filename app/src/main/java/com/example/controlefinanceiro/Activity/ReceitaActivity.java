@@ -63,6 +63,7 @@ public class ReceitaActivity extends AppCompatActivity {
             movimentacao.salvar(data);
 
             Toast.makeText( this, "Movimentação criada com sucesso", Toast.LENGTH_SHORT ).show();
+            finish();
 
         } else {
             Toast.makeText( this, "Movimentação não criada!", Toast.LENGTH_SHORT ).show();

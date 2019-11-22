@@ -15,6 +15,7 @@ import com.example.controlefinanceiro.Helper.DateCustom;
 import com.example.controlefinanceiro.Model.Movimentacao;
 import com.example.controlefinanceiro.Model.Usuario;
 import com.example.controlefinanceiro.R;
+import com.example.controlefinanceiro.adapter.AdapterMovimentacao;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,6 +66,7 @@ public class DespesasActivity extends AppCompatActivity {
             movimentacao.salvar(data);
 
             Toast.makeText( this, "Movimentação criada com sucesso", Toast.LENGTH_SHORT ).show();
+            finish();
 
         } else {
             Toast.makeText( this, "Movimentação não criada!", Toast.LENGTH_SHORT ).show();
