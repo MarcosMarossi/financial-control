@@ -1,9 +1,11 @@
 package com.example.controlefinanceiro.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -14,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.controlefinanceiro.Configurações.ConfigFirebase;
 import com.example.controlefinanceiro.Helper.Base64Custom;
@@ -38,6 +41,7 @@ public class PainelActitvity extends AppCompatActivity {
 
     private MaterialCalendarView calendario;
     private Double despesaTotal = 0.0, receitaTotal = 0.0, resultado;
+    private Movimentacao movimentacao;
     private TextView textUsuario, textValor;
     private RecyclerView recyclerView;
     private List<Movimentacao> movimentacoes = new ArrayList<>(  );
@@ -82,15 +86,15 @@ public class PainelActitvity extends AppCompatActivity {
 
         textUsuario = findViewById( R.id.textUsuario );
         textValor = findViewById( R.id.textValor );
-
-        swipe();
-
         recyclerView = findViewById( R.id.recyclerMovimentos );
+
         adapterMovimentacao = new AdapterMovimentacao( movimentacoes, this );
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
         recyclerView.setLayoutManager( layoutManager );
         recyclerView.setHasFixedSize( true );
         recyclerView.setAdapter(adapterMovimentacao);
+
+        swipe();
     }
 
 
@@ -109,7 +113,8 @@ public class PainelActitvity extends AppCompatActivity {
                 movimentacoes.clear();
                 for(DataSnapshot dados: dataSnapshot.getChildren()){
                     Movimentacao movimentacao = dados.getValue( Movimentacao.class);
-                    System.out.println( movimentacao.getCategoria());
+                    //System.out.println( movimentacao.getCategoria());
+                    movimentacao.setKey( dados.getKey() );
                     movimentacoes.add(movimentacao);
                 }
                 adapterMovimentacao.notifyDataSetChanged();
@@ -127,7 +132,9 @@ public class PainelActitvity extends AppCompatActivity {
         ItemTouchHelper.Callback item = new ItemTouchHelper.Callback() {
             @Override
             public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                return 0;
+                int dragFlags = ItemTouchHelper.ACTION_STATE_IDLE;
+                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+                return makeMovementFlags( dragFlags, swipeFlags );
             }
 
             @Override
@@ -137,9 +144,68 @@ public class PainelActitvity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                excluirMovimento( viewHolder );
 
             }
         };
+
+        new ItemTouchHelper( item ).attachToRecyclerView( recyclerView );
+
+    }
+
+    public void excluirMovimento(final RecyclerView.ViewHolder viewHolder){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder( this );
+        alert.setTitle( "Exlcuir movimentação" );
+        alert.setMessage( "Tem certeza que deseja exlcuir a movimentação?" );
+        alert.setCancelable( false );
+
+        alert.setPositiveButton( "Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                int pos = viewHolder.getAdapterPosition();
+                movimentacao = movimentacoes.get( pos );
+
+
+                String email = autenticacao.getCurrentUser().getEmail();
+                String id = Base64Custom.codificarBase64( email );
+                movimentacaoref = referencia.child( "movimentacao" ).child( id ).child( mesAnoSelecionado );
+
+                movimentacaoref.child( movimentacao.getKey() ).removeValue();
+                adapterMovimentacao.notifyItemRemoved(pos);
+                atualizarSaldo();
+            }
+        } );
+
+        alert.setNegativeButton( "Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText( PainelActitvity.this, "Exclusão cancelada", Toast.LENGTH_SHORT ).show();
+                adapterMovimentacao.notifyDataSetChanged();
+            }
+        } );
+
+        AlertDialog alertDialog = alert.create();
+        alertDialog.show();
+
+    }
+
+    public void atualizarSaldo(){
+
+        String email = autenticacao.getCurrentUser().getEmail();
+        String id = Base64Custom.codificarBase64( email );
+        usuarioref = referencia.child( "usuarios" ).child( id );
+
+        if(movimentacao.getTipo().equals( "r" )){
+            receitaTotal = receitaTotal - movimentacao.getValor();
+            usuarioref.child( "receitaTotal" ).setValue( receitaTotal );
+        }
+
+        if(movimentacao.getTipo().equals( "d" )){
+            despesaTotal = despesaTotal - movimentacao.getValor();
+            usuarioref.child( "despesaTotal" ).setValue( despesaTotal );
+        }
 
     }
 
