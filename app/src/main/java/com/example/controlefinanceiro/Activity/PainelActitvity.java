@@ -78,7 +78,7 @@ public class PainelActitvity extends AppCompatActivity {
 
     }
     public void criarLucro(View view){
-        startActivity( new Intent( getApplicationContext(), LucrosActivity.class ) );
+        startActivity( new Intent( getApplicationContext(), ReceitaActivity.class ) );
     }
 
 }

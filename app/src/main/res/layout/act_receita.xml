@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.DespesasActivity">
+    tools:context=".Activity.ReceitaActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="1dp">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/etValor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -43,6 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ex: 17/11/2019"
@@ -61,6 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ex: salário"
@@ -79,6 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ex: salário mensal"
@@ -91,9 +94,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:clickable="true"
+        android:onClick="addReceita"
         app:backgroundTint="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_add_white_24dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
